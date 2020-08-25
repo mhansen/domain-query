@@ -4,4 +4,8 @@ COPY go.* ./
 RUN go mod download
 COPY . ./
 RUN go build -mod=readonly -a -v dump.go
-ENTRYPOINT ["/app/dump"]
+
+FROM alpine:3
+RUN apk add --no-cache ca-certificates
+COPY --from=gobuilder /app/dump /dump
+ENTRYPOINT ["/dump"]
