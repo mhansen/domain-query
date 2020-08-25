@@ -20,7 +20,6 @@ var (
 	dataset   = flag.String("dataset", "domain", "BigQuery dataset ID")
 	table     = flag.String("table", "listings_test", "BigQuery table ID")
 	state     = flag.String("state", "NSW", "State to search")
-	postcode  = flag.String("postcode", "2009", "Postcode to search")
 )
 
 func fetch(w http.ResponseWriter, r *http.Request) {
@@ -109,7 +108,7 @@ func fetchInternal(r *http.Request) error {
 					Area:                      "",
 					Region:                    "",
 					Suburb:                    suburb,
-					PostCode:                  *postcode,
+					PostCode:                  "",
 					IncludeSurroundingSuburbs: false,
 				},
 			},
