@@ -20,7 +20,6 @@ var (
 	dataset   = flag.String("dataset", "domain", "BigQuery dataset ID")
 	table     = flag.String("table", "listings_test", "BigQuery table ID")
 	state     = flag.String("state", "NSW", "State to search")
-	suburb    = flag.String("suburb", "Pyrmont", "Suburb to search")
 	postcode  = flag.String("postcode", "2009", "Postcode to search")
 )
 
@@ -100,33 +99,35 @@ func fetchInternal(r *http.Request) error {
 	var c http.Client
 	dc := domain.NewClient(&c, *apiKey)
 
-	rsr := domain.ResidentialSearchRequest{
-		ListingType: "Rent",
-		Locations: []domain.LocationFilter{
-			{
-				State:                     *state,
-				Area:                      "",
-				Region:                    "",
-				Suburb:                    *suburb,
-				PostCode:                  *postcode,
-				IncludeSurroundingSuburbs: false,
-			},
-		},
-	}
-	listings, err := dc.SearchResidential(rsr)
-	if err != nil {
-		return fmt.Errorf("error searching domain for %+v: %v", rsr, err)
-	}
 	ins := t.Inserter()
-	rows := []Row{}
-	for _, l := range listings {
-		rows = append(rows, Row{
-			FetchTime: fetchTime,
-			Listing:   l.Listing,
-		})
-	}
-	if err := ins.Put(ctx, rows); err != nil {
-		return fmt.Errorf("could not insert to bigquery: %v", err)
+	for _, suburb := range r.URL.Query()["suburb"] {
+		rsr := domain.ResidentialSearchRequest{
+			ListingType: "Rent",
+			Locations: []domain.LocationFilter{
+				{
+					State:                     *state,
+					Area:                      "",
+					Region:                    "",
+					Suburb:                    suburb,
+					PostCode:                  *postcode,
+					IncludeSurroundingSuburbs: false,
+				},
+			},
+		}
+		listings, err := dc.SearchResidential(rsr)
+		if err != nil {
+			return fmt.Errorf("error searching domain for %+v: %v", rsr, err)
+		}
+		rows := []Row{}
+		for _, l := range listings {
+			rows = append(rows, Row{
+				FetchTime: fetchTime,
+				Listing:   l.Listing,
+			})
+		}
+		if err := ins.Put(ctx, rows); err != nil {
+			return fmt.Errorf("could not insert to bigquery: %v", err)
+		}
 	}
 	return nil
 }
