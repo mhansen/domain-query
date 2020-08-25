@@ -4,4 +4,4 @@ COPY go.* ./
 RUN go mod download
 COPY . ./
 RUN go build -mod=readonly -a -v dump.go
-ENTRYPOINT ["/dump"]
+ENTRYPOINT ["/app/dump"]
