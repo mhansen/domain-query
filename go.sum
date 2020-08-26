@@ -316,6 +316,8 @@ github.com/mhansen/domain v0.0.0-20200825094529-86b4f325a947 h1:MLsd+ZQ7JgAkhnBW
 github.com/mhansen/domain v0.0.0-20200825094529-86b4f325a947/go.mod h1:gT/f5XAV5Hqv9eesXE0ZutIY9fSv4DCW086lhwuN5mY=
 github.com/mhansen/domain v0.0.0-20200825095210-3cfc7a4cc353 h1:0Izj2Xhhv6FOKPlqYT0NjG3R0ypFZCXBR3pe+ReDAi4=
 github.com/mhansen/domain v0.0.0-20200825095210-3cfc7a4cc353/go.mod h1:gT/f5XAV5Hqv9eesXE0ZutIY9fSv4DCW086lhwuN5mY=
+github.com/mhansen/domain v0.0.0-20200826100121-8abf824320c0 h1:/WyK4bvKp9NiGT5x9hD1NKKrygm36ZggZYsaX/x1mL8=
+github.com/mhansen/domain v0.0.0-20200826100121-8abf824320c0/go.mod h1:gT/f5XAV5Hqv9eesXE0ZutIY9fSv4DCW086lhwuN5mY=
 github.com/miekg/dns v1.0.14/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
 github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
 github.com/mitchellh/go-homedir v1.0.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
